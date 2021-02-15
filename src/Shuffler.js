@@ -16,10 +16,19 @@ export default function Shuffler({
 	const [showResult, setShowResult] = useState(false);
 	const [disableSpinButton, setDisableDrawButton] = useState(false);
 	const [pastDrawnMembers, setPastDrawnMembers] = useState([]);
+	const [isComplete, setIsComplete] = useState(false);
+
 	useEffect(() => {
 		const storedMembers = getMembersFromStorage();
 		setMembers(storedMembers);
 	}, []);
+
+	useEffect(() => {
+		if (members?.length === pastDrawnMembers?.length) {
+			setIsComplete(true);
+		}
+		
+	}, [members, pastDrawnMembers])
 
 	const sleep = (time) => {
 		return new Promise((resolve) => setTimeout(resolve, time));
@@ -29,14 +38,15 @@ export default function Shuffler({
 		setIsSpinning(true);
 		setShowResult(false);
 		setDisableDrawButton(true);
+		const leftOverMemebers = members.filter((val) => !pastDrawnMembers.includes(val));
 
-		let maxItemIndex = members.length;
+		let maxItemIndex = leftOverMemebers.length;
 		const randomIndex = Math.floor(Math.random() * maxItemIndex);
 		sleep(3000).then(() => {
 			setShowResult(true);
 			setIsSpinning(false);
-			setResult(members[randomIndex]);
-			setPastDrawnMembers([...pastDrawnMembers, members[randomIndex]]);
+			setResult(leftOverMemebers[randomIndex]);
+			setPastDrawnMembers([...pastDrawnMembers, leftOverMemebers[randomIndex]]);
 			setDisableDrawButton(false);
 		});
 	};
@@ -44,23 +54,24 @@ export default function Shuffler({
 	return (
 		<div className="d-Flex flex-column">
 			<div>
-			{!showResult && isSpinning &&
-				<TextLoop
-					interval={animationSpeed}
-					springConfig={LOOP_CONFIG}
-					children={members}
-				/>
-      }
+				{!showResult && isSpinning && (
+					<TextLoop
+						interval={animationSpeed}
+						springConfig={LOOP_CONFIG}
+						children={members}
+					/>
+				)}
 				<Confetti active={showResult} />
-				{showResult && result}
+				<h2>{showResult && result}</h2>
+				<div>{isComplete && 'No one left'}</div>
 			</div>
-			<div className="flex-row">
+			<div className="d-Flex flex-row space-between">
 				<button
 					type="button"
 					onClick={spin}
 					name="spin"
 					className="save-button"
-					disabled={disableSpinButton}
+					disabled={disableSpinButton || isComplete}
 				>
 					Spin
 				</button>

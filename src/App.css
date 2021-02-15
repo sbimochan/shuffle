@@ -16,6 +16,10 @@ body {
 	flex-direction: row;
 }
 
+.space-between {
+	justify-content: space-between;
+}
+
 .container {
 	position: fixed; /* or absolute */
 	top: 50%;
@@ -53,6 +57,15 @@ body {
 	transition: background 100ms ease;
 	position: static;
 	margin-top: 10px;
+}
+
+.save-button:disabled {
+	cursor: not-allowed;
+	pointer-events: none;
+
+	/*Button disabled - CSS color class*/
+	color: #c0c0c0;
+	background-color: #ffffff;
 }
 
 .save-button,

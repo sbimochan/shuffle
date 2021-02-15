@@ -10,13 +10,14 @@ function App() {
 
 	useEffect(() => {
 		const storedMembers = getMembersFromStorage();
-		const hasMembers = shuffleMembers.length >= 1;
+		const hasMembers = shuffleMembers?.length >= 1;
 		hasMembers ? setScreen('shuffler') : setScreen('members-form');
 		setShuffleMembers(storedMembers);
-	}, [shuffleMembers.length]);
+	}, [shuffleMembers?.length]);
 
 	return (
 		<div className="container">
+			<h1>Standup Shuffler</h1>
 			<div className="shuffler">
 				<hr className="thick-line" />
 				{screen === 'shuffler' ? (

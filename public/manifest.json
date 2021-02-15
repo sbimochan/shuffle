@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Standup Shuffler",
+  "name": "Standup shuffler",
   "icons": [
     {
       "src": "favicon.ico",
