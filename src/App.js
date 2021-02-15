@@ -17,7 +17,7 @@ function App() {
 
 	return (
 		<div className="container">
-			<h1>Shuffler</h1>
+			<h1>Shuffle</h1>
 			<hr className="thick-line" />
 			<div className="d-Flex flex-column shuffler">
 				{screen === 'shuffler' ? (
