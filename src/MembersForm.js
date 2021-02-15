@@ -17,7 +17,7 @@ export default function MembersForm({ changeRoute }) {
 		localStorage.setItem('members', JSON.stringify(values));
 	};
 	return (
-		<div className="d-Flex flex-column">
+		<div>
 			<h3>Enter names separated by comma</h3>
 			<Tags value={members} autofocus onChange={(e) => handleOnChange(e)} />
 			<button type="button" onClick={changeRoute} name="save" className="save-button">

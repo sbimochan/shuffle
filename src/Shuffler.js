@@ -52,8 +52,9 @@ export default function Shuffler({
 	};
 
 	return (
-		<div className="d-Flex flex-column">
+		<div>
 			<div>
+				<div className="spinner">
 				{!showResult && isSpinning && (
 					<TextLoop
 						interval={animationSpeed}
@@ -61,11 +62,12 @@ export default function Shuffler({
 						children={members}
 					/>
 				)}
+				</div>
 				<Confetti active={showResult} />
 				<h2>{showResult && result}</h2>
 				<div>{isComplete && 'No one left'}</div>
 			</div>
-			<div className="d-Flex flex-row space-between">
+			<div className="d-Flex flex-row space-between button-container">
 				<button
 					type="button"
 					onClick={spin}

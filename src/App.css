@@ -28,11 +28,11 @@ body {
 }
 
 .shuffler {
-	border: 0;
-	height: 5px;
-	margin: 2rem 0;
-	border-radius: 5px;
-	min-width: 300px;
+	min-height: 150px;
+}
+
+.spinner {
+	font-size: 20px;
 }
 
 .thick-line {
@@ -43,9 +43,9 @@ body {
 	border-radius: 5px;
 }
 
-/* .tagify__input {
-	background-color: #fff;
-} */
+.button-container {
+	margin-top: 93px;
+}
 
 .save-button {
 	font: inherit;

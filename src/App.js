@@ -18,8 +18,8 @@ function App() {
 	return (
 		<div className="container">
 			<h1>Shuffler</h1>
-			<div className="shuffler">
-				<hr className="thick-line" />
+			<hr className="thick-line" />
+			<div className="d-Flex flex-column shuffler">
 				{screen === 'shuffler' ? (
 					<Shuffler
 						names={shuffleMembers}
@@ -28,8 +28,8 @@ function App() {
 				) : (
 					<MembersForm changeRoute={() => setScreen('shuffler')} />
 				)}
-				<hr className="thick-line" />
 			</div>
+			<hr className="thick-line" />
 		</div>
 	);
 }
