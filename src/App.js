@@ -17,7 +17,7 @@ function App() {
 
 	return (
 		<div className="container">
-			<h1>Standup Shuffler</h1>
+			<h1>Shuffler</h1>
 			<div className="shuffler">
 				<hr className="thick-line" />
 				{screen === 'shuffler' ? (
