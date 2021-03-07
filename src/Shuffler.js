@@ -10,7 +10,7 @@ export default function Shuffler({
 	animationSpeed = 400,
 	changeRoute,
 }) {
-	const [members, setMembers] = useState(names);
+	const [members, setMembers] = useState(names || []);
 	const [isSpinning, setIsSpinning] = useState(false);
 	const [result, setResult] = useState(null);
 	const [showResult, setShowResult] = useState(false);
@@ -24,9 +24,7 @@ export default function Shuffler({
 	}, []);
 
 	useEffect(() => {
-		if (members?.length === pastDrawnMembers?.length) {
-			setIsComplete(true);
-		}
+		setIsComplete(members?.length === pastDrawnMembers?.length);
 		
 	}, [members, pastDrawnMembers])
 
@@ -38,18 +36,25 @@ export default function Shuffler({
 		setIsSpinning(true);
 		setShowResult(false);
 		setDisableDrawButton(true);
-		const leftOverMemebers = members.filter((val) => !pastDrawnMembers.includes(val));
+		const leftOverMembers = members?.filter((val) => !pastDrawnMembers.includes(val));
 
-		let maxItemIndex = leftOverMemebers.length;
+		let maxItemIndex = leftOverMembers.length;
 		const randomIndex = Math.floor(Math.random() * maxItemIndex);
 		sleep(3000).then(() => {
 			setShowResult(true);
 			setIsSpinning(false);
-			setResult(leftOverMemebers[randomIndex]);
-			setPastDrawnMembers([...pastDrawnMembers, leftOverMemebers[randomIndex]]);
+			setResult(leftOverMembers[randomIndex]);
+			setPastDrawnMembers([...pastDrawnMembers, leftOverMembers[randomIndex]]);
 			setDisableDrawButton(false);
 		});
 	};
+
+	const addMembersBack = (name) => {
+		const newMemberList = [...members, name]
+		setMembers(newMemberList);
+		const newPastMembers = pastDrawnMembers?.filter(el => el !== name);
+		setPastDrawnMembers(newPastMembers)
+	}
 
 	return (
 		<div>
@@ -80,6 +85,9 @@ export default function Shuffler({
 				<button type="button" onClick={changeRoute} name="save" className="save-button">
 					Change names
 				</button>
+			</div>
+			<div className="past">
+				{pastDrawnMembers.map((el,index) => <span key={index} onClick={()=> addMembersBack(el)}>{el}</span>)}
 			</div>
 		</div>
 	);
