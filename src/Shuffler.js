@@ -3,7 +3,7 @@ import Confetti from 'react-dom-confetti';
 import TextLoop from 'react-text-loop';
 
 import { DEFAULT_NAMES, LOOP_CONFIG } from './constants';
-import { getMembersFromStorage } from './utils';
+import { getMembersFromStorage, removeItem } from './utils';
 
 export default function Shuffler({
 	names = [...DEFAULT_NAMES],
@@ -17,7 +17,6 @@ export default function Shuffler({
 	const [disableSpinButton, setDisableDrawButton] = useState(false);
 	const [pastDrawnMembers, setPastDrawnMembers] = useState([]);
 	const [isComplete, setIsComplete] = useState(false);
-
 	useEffect(() => {
 		const storedMembers = getMembersFromStorage();
 		setMembers(storedMembers);
@@ -25,8 +24,7 @@ export default function Shuffler({
 
 	useEffect(() => {
 		setIsComplete(members?.length === pastDrawnMembers?.length);
-		
-	}, [members, pastDrawnMembers])
+	}, [members, pastDrawnMembers]);
 
 	const sleep = (time) => {
 		return new Promise((resolve) => setTimeout(resolve, time));
@@ -50,23 +48,24 @@ export default function Shuffler({
 	};
 
 	const addMembersBack = (name) => {
-		const newMemberList = [...members, name]
+		const newMemberList = [...members, name];
 		setMembers(newMemberList);
-		const newPastMembers = pastDrawnMembers?.filter(el => el !== name);
-		setPastDrawnMembers(newPastMembers)
-	}
+		const newPastMembers = removeItem(name, pastDrawnMembers)
+
+		setPastDrawnMembers(newPastMembers);
+	};
 
 	return (
 		<div>
 			<div>
 				<div className="spinner">
-				{!showResult && isSpinning && (
-					<TextLoop
-						interval={animationSpeed}
-						springConfig={LOOP_CONFIG}
-						children={members}
-					/>
-				)}
+					{!showResult && isSpinning && (
+						<TextLoop
+							interval={animationSpeed}
+							springConfig={LOOP_CONFIG}
+							children={members}
+						/>
+					)}
 				</div>
 				<Confetti active={showResult} />
 				<h2>{showResult && result}</h2>
@@ -87,7 +86,11 @@ export default function Shuffler({
 				</button>
 			</div>
 			<div className="past">
-				{pastDrawnMembers.map((el,index) => <span key={index} onClick={()=> addMembersBack(el)}>{el}</span>)}
+				{pastDrawnMembers.map((el, index) => (
+					<span key={index} onClick={() => addMembersBack(el)}>
+						{el}
+					</span>
+				))}
 			</div>
 		</div>
 	);
