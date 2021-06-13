@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Tags from '@yaireo/tagify/dist/react.tagify'; // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css';
-import { getMembersFromStorage } from './utils';
+import { getMembersFromStorage } from './utils/utils';
 
 export default function MembersForm({ changeRoute }) {
 	const [members, setMembers] = useState([]);
@@ -17,8 +17,8 @@ export default function MembersForm({ changeRoute }) {
 		localStorage.setItem('members', JSON.stringify(values));
 	};
 	return (
-		<div>
-			<h3>Enter names separated by comma</h3>
+		<div className="maxw-300">
+			<h3>Enter names separated by comma:</h3>
 			<Tags value={members} autofocus onChange={(e) => handleOnChange(e)} />
 			<button type="button" onClick={changeRoute} name="save" className="save-button">
 				Finish

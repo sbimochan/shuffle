@@ -1,8 +1,9 @@
-import './App.css';
+import './css/style.css';
+import './css/util.css';
 import Shuffler from './Shuffler';
 import { useState, useEffect } from 'react';
 import MembersForm from './MembersForm';
-import { getMembersFromStorage } from './utils';
+import { getMembersFromStorage } from './utils/utils';
 
 function App() {
 	const [shuffleMembers, setShuffleMembers] = useState([]);

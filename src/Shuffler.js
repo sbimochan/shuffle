@@ -3,7 +3,7 @@ import Confetti from 'react-dom-confetti';
 import TextLoop from 'react-text-loop';
 
 import { DEFAULT_NAMES, LOOP_CONFIG } from './constants';
-import { getMembersFromStorage, removeItem } from './utils';
+import { getMembersFromStorage, removeItem } from './utils/utils';
 
 export default function Shuffler({
 	names = [...DEFAULT_NAMES],
@@ -50,7 +50,7 @@ export default function Shuffler({
 	const addMembersBack = (name) => {
 		const newMemberList = [...members, name];
 		setMembers(newMemberList);
-		const newPastMembers = removeItem(name, pastDrawnMembers)
+		const newPastMembers = removeItem(name, pastDrawnMembers);
 
 		setPastDrawnMembers(newPastMembers);
 	};
@@ -68,28 +68,35 @@ export default function Shuffler({
 					)}
 				</div>
 				<Confetti active={showResult} />
-				<h2>{showResult && result}</h2>
-				<div>{isComplete && 'No one left'}</div>
+				<div className="fs-20 mb-10 capitalize">{showResult && result}</div>
+				{isComplete && <span className="fs-16">No one left</span>}
 			</div>
-			<div className="d-Flex flex-row space-between button-container">
+			<div className="d-Flex flex-row space-between button-container minw-300">
 				<button
 					type="button"
 					onClick={spin}
 					name="spin"
-					className="save-button"
+					className="save-button spin"
 					disabled={disableSpinButton || isComplete}
 				>
 					Spin
 				</button>
 				<button type="button" onClick={changeRoute} name="save" className="save-button">
-					Change names
+					Edit
 				</button>
 			</div>
-			<div className="past">
+			<div className="past maxw-300">
+				{pastDrawnMembers.length > 0 && <p className="fs-20">Past Drawn members:</p>}
 				{pastDrawnMembers.map((el, index) => (
-					<span key={index} onClick={() => addMembersBack(el)}>
+					<button
+						type="button"
+						key={index}
+						className="past-member-btn capitalize"
+						onClick={() => addMembersBack(el)}
+						title="Click to send back."
+					>
 						{el}
-					</span>
+					</button>
 				))}
 			</div>
 		</div>
