@@ -1,23 +1,7 @@
 body {
-	/* background-color: ; */
 	font-family: 'Raleway', sans-serif;
-	/* color: #fff; */
-}
-
-.d-Flex {
-	display: flex;
-}
-
-.flex-column {
-	flex-direction: column;
-}
-
-.flex-row {
-	flex-direction: row;
-}
-
-.space-between {
-	justify-content: space-between;
+	background-color: #222;
+	color: #eee;
 }
 
 .container {
@@ -88,7 +72,8 @@ body {
 }
 
 .save-button:hover {
-	background: #333333;
+	background: #eee;
+	color: #222;
 }
 
 .save-button:focus::before {
@@ -98,4 +83,22 @@ body {
 
 :not([data-interactive]) > .save-button::before {
 	display: none;
+}
+
+.past {
+	margin-top: 30px;
+	min-height: 70px;
+}
+
+button.past-member-btn {
+	padding: 10px;
+	cursor: pointer;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	background-color: #222;
+	color: #eee;
+}
+
+button.spin {
+	width: 180px;
 }
